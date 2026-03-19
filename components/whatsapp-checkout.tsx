@@ -102,7 +102,7 @@ export function WhatsAppCheckout({ items, totalPrice, onClose, onSuccess }: What
   }
 
   function handleSendToWhatsApp() {
-    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "263771234567"
+    const number = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "263783580470"
     const msg = buildWhatsAppMessage(form, items, totalPrice)
     window.open(`https://wa.me/${number}?text=${msg}`, "_blank")
     onSuccess()
@@ -154,7 +154,7 @@ export function WhatsAppCheckout({ items, totalPrice, onClose, onSuccess }: What
               onClick={() => set("paymentMethod", method)}
               className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-all ${
                 form.paymentMethod === method
-                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                  ? "border-primary bg-primary/5 text-primary-foreground ring-1 ring-primary"
                   : "border-border bg-background text-foreground hover:border-primary/50"
               }`}
             >
@@ -177,7 +177,7 @@ export function WhatsAppCheckout({ items, totalPrice, onClose, onSuccess }: What
             onClick={() => set("fulfilment", "collect")}
             className={`flex flex-col items-center gap-1.5 rounded-xl border px-4 py-4 text-center text-sm font-medium transition-all ${
               form.fulfilment === "collect"
-                ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                ? "border-primary bg-primary/5 text-primary-foreground ring-1 ring-primary"
                 : "border-border bg-background text-foreground hover:border-primary/50"
             }`}
           >
@@ -190,7 +190,7 @@ export function WhatsAppCheckout({ items, totalPrice, onClose, onSuccess }: What
             onClick={() => set("fulfilment", "delivery")}
             className={`flex flex-col items-center gap-1.5 rounded-xl border px-4 py-4 text-center text-sm font-medium transition-all ${
               form.fulfilment === "delivery"
-                ? "border-primary bg-primary/5 text-primary ring-1 ring-primary"
+                ? "border-primary bg-primary/5 text-primary-foreground ring-1 ring-primary"
                 : "border-border bg-background text-foreground hover:border-primary/50"
             }`}
           >

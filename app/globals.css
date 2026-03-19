@@ -59,9 +59,6 @@
   --radius-full: 9999px;
   --radius: 18px;
 
-  /* Navbar fixed offset for hero sections */
-  --nav-offset: 88px;
-
   /* Chart / sidebar (for components) */
   --chart-1: var(--nestovia-ink);
   --chart-2: var(--nestovia-inkMuted);
@@ -76,24 +73,6 @@
   --sidebar-accent-foreground: var(--nestovia-ink);
   --sidebar-border: var(--nestovia-divider);
   --sidebar-ring: var(--nestovia-ink);
-}
-
-@media (min-width: 640px) {
-  :root {
-    --nav-offset: 104px;
-  }
-}
-
-@media (min-width: 768px) {
-  :root {
-    --nav-offset: 120px;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --nav-offset: 136px;
-  }
 }
 
 @theme inline {
@@ -525,4 +504,24 @@ div[data-youtube-video] iframe {
   width: 100%;
   max-height: 520px;
   object-fit: cover;
+}
+
+/* Safety: any element using the dark navy surface (`bg-primary`) should
+   automatically render light text for readability. */
+.bg-primary,
+.bg-primary * {
+  color: var(--nestovia-onDark) !important;
+}
+
+/* Preserve accent color on navy sections/footers. */
+.bg-primary [class*="text-accent"] {
+  color: var(--nestovia-star) !important;
+}
+
+/* Ensure both primary + primary-foreground never render dark on navy. */
+.bg-primary [class*="text-primary-foreground"] {
+  color: var(--nestovia-onDark) !important;
+}
+.bg-primary [class*="text-primary"] {
+  color: var(--nestovia-onDark) !important;
 }

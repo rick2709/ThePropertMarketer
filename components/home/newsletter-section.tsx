@@ -63,8 +63,8 @@ export function NewsletterSection() {
         <div className="mt-8 flex items-center justify-center gap-2 text-primary-foreground/70">
           <Phone className="h-4 w-4" />
           <span className="text-sm">Or call directly: </span>
-          <a href="tel:+263716437751" className="text-sm font-semibold text-primary-foreground transition-colors hover:text-primary-foreground/90">
-            +263 716 437 751
+          <a href="tel:+263783580470" className="text-sm font-semibold text-primary-foreground transition-colors hover:text-primary-foreground/90">
+            +263 78 358 0470
           </a>
         </div>
       </div>

@@ -4,7 +4,13 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, Phone } from "lucide-react"
+import { Menu, X, Phone, Instagram, Facebook, MessageCircle } from "lucide-react"
+
+const socialLinks = [
+  { href: "https://wa.me/263783580470", icon: MessageCircle, label: "WhatsApp", color: "hover:text-[#25D366]" },
+  { href: "https://www.instagram.com/theconservation_compass?igsh=ZXU1cXplemY0a3pz", icon: Instagram, label: "Instagram", color: "hover:text-[#E1306C]" },
+  { href: "https://www.facebook.com/share/1KxvVSWvgC/", icon: Facebook, label: "Facebook", color: "hover:text-[#1877F2]" },
+]
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -21,17 +27,26 @@ export function Navigation() {
     setIsMobileOpen(false)
   }, [pathname])
 
+  // Always solid: no "transparent at top" navbar behavior.
+  const navBg = "bg-card border border-border shadow-lg shadow-black/5"
+  const linkActive = "text-primary bg-primary/10"
+  const linkInactive = "text-foreground hover:text-primary hover:bg-muted"
+  const ctaClass = "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/20"
+  const phoneClass = "text-muted-foreground hover:text-primary"
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
-        <div className="mx-auto flex max-w-6xl items-center justify-between rounded-2xl border border-border bg-card/95 px-4 py-2.5 shadow-lg shadow-black/5 backdrop-blur-xl transition-all duration-300 sm:px-5 sm:py-2">
+        <div
+          className={`mx-auto flex max-w-6xl items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300 sm:px-5 sm:py-2 ${navBg}`}
+        >
           <Link href="/" className="flex items-center shrink-0">
             <Image
               src="/images/logo-full.png"
               alt="The Property Marketer"
               width={280}
               height={70}
-              className="h-9 w-auto sm:h-10"
+              className="h-9 w-auto transition-all duration-300 sm:h-10"
               priority
             />
           </Link>
@@ -42,9 +57,7 @@ export function Navigation() {
                 key={link.href}
                 href={link.href}
                 className={`rounded-xl px-3.5 py-2 text-sm font-medium tracking-wide transition-colors ${
-                  pathname === link.href
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground hover:text-primary hover:bg-muted"
+                  pathname === link.href ? linkActive : linkInactive
                 }`}
               >
                 {link.label}
@@ -53,16 +66,31 @@ export function Navigation() {
           </nav>
 
           <div className="hidden items-center gap-2 lg:flex">
+            {/* Social icons */}
+            <div className="flex items-center gap-1 mr-1">
+              {socialLinks.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className={`flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted ${s.color}`}
+                >
+                  <s.icon className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
             <a
-              href="tel:+263716437751"
-              className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+              href="tel:+263783580470"
+              className={`flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-medium transition-colors ${phoneClass}`}
             >
               <Phone className="h-3.5 w-3.5" />
-              <span className="hidden xl:inline">+263 716 437 751</span>
+              <span className="hidden xl:inline">+263 78 358 0470</span>
             </a>
             <Link
               href="/contact"
-              className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-primary/20 active:scale-[0.98]"
+              className={`rounded-xl px-4 py-2 text-sm font-semibold shadow-sm transition-all active:scale-[0.98] ${ctaClass}`}
             >
               Get In Touch
             </Link>
@@ -70,7 +98,9 @@ export function Navigation() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="flex h-8 w-8 items-center justify-center rounded-xl text-foreground transition-colors hover:bg-muted lg:hidden"
+            className={`flex h-8 w-8 items-center justify-center rounded-xl transition-colors lg:hidden ${
+              "text-foreground hover:bg-muted"
+            }`}
             aria-label="Toggle mobile menu"
           >
             {isMobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
@@ -97,12 +127,27 @@ export function Navigation() {
               </Link>
             ))}
             <div className="mt-2 border-t border-border pt-2">
+              {/* Social links in mobile menu */}
+              <div className="flex items-center gap-2 px-4 py-2.5">
+                {socialLinks.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className={`flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted ${s.color}`}
+                  >
+                    <s.icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
               <a
-                href="tel:+263716437751"
+                href="tel:+263783580470"
                 className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                +263 716 437 751
+                +263 78 358 0470
               </a>
               <Link
                 href="/contact"

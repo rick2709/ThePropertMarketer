@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect, useMemo, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -20,7 +20,7 @@ const propertyTypes = [
   { name: "Luxury", description: "High-end and premium listings." },
 ]
 
-export default function PropertiesPage() {
+function PropertiesContent() {
   const searchParams = useSearchParams()
   const categoryFromUrl = useMemo(() => searchParams.get("category"), [searchParams])
   const [allProperties, setAllProperties] = useState<Property[]>([])
@@ -184,5 +184,21 @@ export default function PropertiesPage() {
 
       <Footer />
     </main>
+  )
+}
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={
+      <main>
+        <Navigation />
+        <section className="flex items-center justify-center py-32">
+          <Loader2 className="h-8 w-8 animate-spin text-accent" />
+        </section>
+        <Footer />
+      </main>
+    }>
+      <PropertiesContent />
+    </Suspense>
   )
 }

@@ -16,7 +16,7 @@ const subjects = [
 ]
 
 const socialLinks = [
-  { href: "https://wa.me/263716437751", icon: MessageCircle, label: "WhatsApp" },
+  { href: "https://wa.me/263783580470", icon: MessageCircle, label: "WhatsApp" },
   { href: "https://www.instagram.com/theconservation_compass?igsh=ZXU1cXplemY0a3pz", icon: Instagram, label: "Instagram" },
   { href: "https://www.facebook.com/share/1KxvVSWvgC/", icon: Facebook, label: "Facebook" },
 ]
@@ -352,13 +352,13 @@ Sent via The Property Marketer Contact Form`
                   </div>
                   <div>
                     <p className="text-sm font-medium text-foreground">Phone / WhatsApp</p>
-                    <a 
-                      href="https://wa.me/263716437751" 
-                      target="_blank" 
+                    <a
+                      href="https://wa.me/263783580470"
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="text-sm text-muted-foreground transition-colors hover:text-accent"
                     >
-                      +263 71 643 7751
+                      +263 78 358 0470
                     </a>
                   </div>
                 </div>

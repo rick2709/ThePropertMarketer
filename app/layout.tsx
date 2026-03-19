@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/lib/cart-context'
+import { WhatsAppFloatButton } from '@/components/whatsapp-float-button'
 import './globals.css'
 
 const inter = Inter({
@@ -26,10 +27,6 @@ export const metadata: Metadata = {
   title: 'The Property Marketer | Premium Real Estate & Marketing',
   description: 'Senior real estate sales agent & marketing executive. 8+ years expertise in Airbnb, land development, brand building & marketing strategy. Your trusted partner for high-end property and Leengate listings.',
   generator: 'v0.app',
-  icons: {
-    icon: '/icon-dark-32x32.png',
-    apple: '/apple-icon.png',
-  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -54,6 +51,7 @@ export default function RootLayout({
         <CartProvider>
           {children}
         </CartProvider>
+        <WhatsAppFloatButton />
         <Analytics />
       </body>
     </html>

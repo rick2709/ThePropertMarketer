@@ -58,12 +58,7 @@ export function HeroSection() {
   return (
     <section
       className="hero-section min-h-screen"
-      style={{
-        height: "calc(100vh - var(--nav-offset))",
-        marginTop: "var(--nav-offset)",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      style={{ height: "100vh", position: "relative", overflow: "hidden" }}
     >
       {/* Layer 0 — fallback still image */}
       <div
@@ -134,7 +129,7 @@ export function HeroSection() {
               onTouchCancel={() => setHoveredPanel(null)}
               style={{
                 flex: 1,
-                height: "calc(100vh - var(--nav-offset))",
+                height: "100vh",
                 borderRight: isLast
                   ? "none"
                   : "0.8px solid rgba(255,255,255,0.30)",
