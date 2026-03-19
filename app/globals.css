@@ -411,6 +411,13 @@ hr, .divider {
 
 /* ─── HERO SECTION (project-specific, nav overlays hero) ──────────────────── */
 
+/* Extra overlay is only needed on mobile — hide on wider screens */
+@media (min-width: 768px) {
+  .mobile-extra-overlay {
+    display: none !important;
+  }
+}
+
 @media (max-width: 767px) {
   .hero-section {
     height: auto !important;
@@ -422,19 +429,19 @@ hr, .divider {
   .hero-panel {
     flex: none !important;
     width: 100% !important;
-    height: 42vh !important;
+    height: 48vh !important;        /* slightly taller to fit button comfortably */
     border-right: none !important;
-    border-bottom: 0.8px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 0.8px solid rgba(255, 255, 255, 0.20);
   }
   .hero-panel:last-child {
     border-bottom: none;
   }
   .hero-panel .hero-text {
-    padding: 0 6% 10% !important;
+    padding: 0 6% 9% !important;
   }
   .hero-panel h2 {
     font-size: 1.25em !important;
-    margin-bottom: 0.45em !important;
+    margin-bottom: 0.4em !important;
   }
 }
 
@@ -449,9 +456,9 @@ hr, .divider {
   .hero-panel {
     flex: 0 0 50% !important;
     width: 50% !important;
-    height: 44vh !important;
-    border-right: 0.8px solid rgba(255, 255, 255, 0.30) !important;
-    border-bottom: 0.8px solid rgba(255, 255, 255, 0.25);
+    height: 50vh !important;
+    border-right: 0.8px solid rgba(255, 255, 255, 0.22) !important;
+    border-bottom: 0.8px solid rgba(255, 255, 255, 0.20);
   }
   .hero-panel:nth-child(2n) {
     border-right: none !important;
@@ -460,7 +467,7 @@ hr, .divider {
     border-bottom: none;
   }
   .hero-panel .hero-text {
-    padding: 0 8% 9% !important;
+    padding: 0 8% 8% !important;
   }
   .hero-panel h2 {
     font-size: 1.45em !important;
