@@ -1,0 +1,528 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─── NESTOVIA LUXURY REAL ESTATE DESIGN SYSTEM ─────────────────────────── */
+:root {
+  /* Nestovia color tokens */
+  --nestovia-bg: #F7F7F3;
+  --nestovia-surface: #FFFFFF;
+  --nestovia-surfaceDim: #F7F7F7;
+  --nestovia-ink: #000000;
+  --nestovia-inkMuted: #636363;
+  --nestovia-inkMid: #696969;
+  --nestovia-inkLight: #767676;
+  --nestovia-inkFaint: #C4C4C4;
+  --nestovia-inkPhone: #4D4D4D;
+  --nestovia-onDark: #FFFFFF;
+  --nestovia-onDarkMuted: rgba(255, 255, 255, 0.55);
+  --nestovia-dark: #0F1F2E;
+  --nestovia-darkCard: rgba(0, 0, 0, 0.35);
+  --nestovia-inputBg: rgba(186, 186, 186, 0.20);
+  --nestovia-inputBgAlt: rgba(187, 187, 187, 0.15);
+  --nestovia-divider: #DBDBDB;
+  --nestovia-borderMuted: rgba(196, 196, 196, 0.46);
+  --nestovia-star: #FFC300;
+  --nestovia-btnFrom: #2E2E2E;
+  --nestovia-btnTo: #000000;
+
+  /* Semantic mapping (so existing Tailwind classes work) */
+  --background: var(--nestovia-bg);
+  --foreground: var(--nestovia-ink);
+  --card: var(--nestovia-surface);
+  --card-foreground: var(--nestovia-ink);
+  --popover: var(--nestovia-surface);
+  --popover-foreground: var(--nestovia-ink);
+  --primary: var(--nestovia-dark);
+  --primary-foreground: var(--nestovia-onDark);
+  --secondary: var(--nestovia-dark);
+  --secondary-foreground: var(--nestovia-onDark);
+  --muted: var(--nestovia-surfaceDim);
+  --muted-foreground: var(--nestovia-inkMuted);
+  --accent: var(--nestovia-star);
+  --accent-foreground: var(--nestovia-ink);
+  --destructive: #DC2626;
+  --destructive-foreground: var(--nestovia-onDark);
+  --border: var(--nestovia-divider);
+  --input: var(--nestovia-borderMuted);
+  --ring: var(--nestovia-ink);
+
+  /* Border radius tokens */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-pill: 50px;
+  --radius-full: 9999px;
+  --radius: 18px;
+
+  /* Navbar fixed offset for hero sections */
+  --nav-offset: 88px;
+
+  /* Chart / sidebar (for components) */
+  --chart-1: var(--nestovia-ink);
+  --chart-2: var(--nestovia-inkMuted);
+  --chart-3: var(--nestovia-inkLight);
+  --chart-4: var(--nestovia-inkFaint);
+  --chart-5: var(--nestovia-star);
+  --sidebar: var(--nestovia-surface);
+  --sidebar-foreground: var(--nestovia-ink);
+  --sidebar-primary: var(--nestovia-dark);
+  --sidebar-primary-foreground: var(--nestovia-onDark);
+  --sidebar-accent: var(--nestovia-surfaceDim);
+  --sidebar-accent-foreground: var(--nestovia-ink);
+  --sidebar-border: var(--nestovia-divider);
+  --sidebar-ring: var(--nestovia-ink);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --nav-offset: 104px;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nav-offset: 120px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nav-offset: 136px;
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-sans), "Inter", sans-serif;
+  --font-serif: var(--font-sans), "Inter", sans-serif;
+  --font-accent: var(--font-accent), "Instrument Serif", serif;
+  --font-mono: ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-pill: var(--radius-pill);
+  --radius-full: var(--radius-full);
+
+  /* Nestovia design tokens (utility classes: bg-nestovia-bg, text-nestovia-ink, etc.) */
+  --color-nestovia-bg: var(--nestovia-bg);
+  --color-nestovia-surface: var(--nestovia-surface);
+  --color-nestovia-surfaceDim: var(--nestovia-surfaceDim);
+  --color-nestovia-ink: var(--nestovia-ink);
+  --color-nestovia-inkMuted: var(--nestovia-inkMuted);
+  --color-nestovia-inkMid: var(--nestovia-inkMid);
+  --color-nestovia-inkLight: var(--nestovia-inkLight);
+  --color-nestovia-inkFaint: var(--nestovia-inkFaint);
+  --color-nestovia-inkPhone: var(--nestovia-inkPhone);
+  --color-nestovia-onDark: var(--nestovia-onDark);
+  --color-nestovia-onDarkMuted: var(--nestovia-onDarkMuted);
+  --color-nestovia-dark: var(--nestovia-dark);
+  --color-nestovia-darkCard: var(--nestovia-darkCard);
+  --color-nestovia-star: var(--nestovia-star);
+  --color-nestovia-divider: var(--nestovia-divider);
+  --color-nestovia-borderMuted: var(--nestovia-borderMuted);
+}
+
+/* ─── GLOBAL RESET ──────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    background-color: #F7F7F3;
+    color: #000000;
+    font-family: var(--font-sans), "Inter", sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── TYPOGRAPHY SCALE (Inter 500, tight letter-spacing) ──────────────────── */
+.text-display { font-size: 72px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.1; }
+.text-h2 { font-size: 58px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.2; }
+.text-h3 { font-size: 36px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.3; }
+.text-h4 { font-size: 28px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.3; }
+.text-h5 { font-size: 26px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.3; }
+.text-xl { font-size: 22px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.2; }
+.text-lg { font-size: 20px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.3; }
+.text-base { font-size: 18px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.3; }
+.text-nav { font-size: 16px; font-weight: 500; letter-spacing: -0.04em; line-height: 1.2; }
+.text-sm { font-size: 15px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.3; }
+.text-xs { font-size: 12px; font-weight: 500; letter-spacing: -0.05em; line-height: 1.3; }
+
+/* ─── BUTTONS ───────────────────────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(1deg, rgb(46, 46, 46) 0%, rgb(0, 0, 0) 100%);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: var(--font-sans), Inter, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.04em;
+  padding: 16px 28px;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    rgba(255,255,255,0.18) 0px 0.82px 0.82px -0.54px inset,
+    rgba(255,255,255,0.17) 0px 2.02px 2.02px -1.07px inset,
+    rgba(255,255,255,0.17) 0px 3.82px 3.82px -1.61px inset,
+    rgba(255,255,255,0.16) 0px 6.67px 6.67px -2.14px inset,
+    rgba(255,255,255,0.15) 0px 11.6px 11.6px -2.68px inset,
+    rgba(255,255,255,0.12) 0px 21.3px 21.3px -3.21px inset,
+    rgba(255,255,255,0.06) 0px 42px 42px -3.75px inset,
+    rgba(0,0,0,0.08) 0px 5px 5px 0px;
+}
+.btn-primary:hover {
+  background: linear-gradient(1deg, rgb(60, 60, 60) 0%, rgb(20, 20, 20) 100%);
+}
+
+.btn-primary-sm {
+  background: linear-gradient(1deg, rgb(46, 46, 46) 0%, rgb(0, 0, 0) 100%);
+  border-radius: 50px;
+  color: #FFFFFF;
+  font-family: var(--font-sans), Inter, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: -0.04em;
+  padding: 9px 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow:
+    rgba(255,255,255,0.18) 0px 0.82px 0.82px -0.54px inset,
+    rgba(255,255,255,0.17) 0px 2.02px 2.02px -1.07px inset,
+    rgba(0,0,0,0.08) 0px 2px 2px 0px;
+}
+.btn-primary-sm:hover {
+  background: linear-gradient(1deg, rgb(60, 60, 60) 0%, rgb(20, 20, 20) 100%);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #000000;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.04em;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ─── CARDS ─────────────────────────────────────────────────────────────── */
+.card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 18px;
+}
+.card-feature {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 28px;
+}
+.card-faq {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 8px;
+}
+.card-dark {
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 16px;
+  color: #FFFFFF;
+}
+
+/* ─── INPUTS ─────────────────────────────────────────────────────────────── */
+.input {
+  background: rgba(186, 186, 186, 0.20);
+  border: none;
+  border-radius: 50px;
+  padding: 14px 20px;
+  font-family: var(--font-sans), Inter, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #000000;
+  outline: none;
+  width: 100%;
+}
+.input::placeholder {
+  color: #767676;
+}
+.input:focus {
+  background: rgba(186, 186, 186, 0.30);
+}
+
+/* ─── IMAGES ─────────────────────────────────────────────────────────────── */
+img {
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+}
+.avatar {
+  border-radius: 9999px;
+  object-fit: cover;
+}
+.img-hero {
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ─── SECTION LABEL (eyebrow) ────────────────────────────────────────────── */
+.section-label {
+  font-family: var(--font-sans), Inter, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+  letter-spacing: -0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.section-label-light {
+  color: #C4C4C4;
+}
+
+/* ─── DIVIDERS ───────────────────────────────────────────────────────────── */
+hr, .divider {
+  border: none;
+  border-top: 1px solid #DBDBDB;
+  margin: 20px 0;
+}
+
+/* ─── STAR RATING ───────────────────────────────────────────────────────── */
+.star {
+  color: #FFC300;
+  font-size: 16px;
+}
+
+/* ─── DARK SECTION ───────────────────────────────────────────────────────── */
+.section-dark {
+  background: #000000;
+  color: #FFFFFF;
+}
+.section-dark h2,
+.section-dark h3 {
+  color: #FFFFFF;
+  letter-spacing: -0.05em;
+}
+.section-dark p {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F7F3;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4C4C4;
+  border-radius: 3px;
+}
+
+/* ─── MOTION (premium ease [0.16, 1, 0.3, 1]) ───────────────────────────── */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes count-up {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-count-up {
+  animation: count-up 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+/* ─── HERO SECTION (project-specific, nav overlays hero) ──────────────────── */
+
+@media (max-width: 767px) {
+  .hero-section {
+    height: auto !important;
+  }
+  .hero-columns {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .hero-panel {
+    flex: none !important;
+    width: 100% !important;
+    height: 42vh !important;
+    border-right: none !important;
+    border-bottom: 0.8px solid rgba(255, 255, 255, 0.25);
+  }
+  .hero-panel:last-child {
+    border-bottom: none;
+  }
+  .hero-panel .hero-text {
+    padding: 0 6% 10% !important;
+  }
+  .hero-panel h2 {
+    font-size: 1.25em !important;
+    margin-bottom: 0.45em !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-section {
+    height: auto !important;
+  }
+  .hero-columns {
+    flex-wrap: wrap !important;
+    height: auto !important;
+  }
+  .hero-panel {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    height: 44vh !important;
+    border-right: 0.8px solid rgba(255, 255, 255, 0.30) !important;
+    border-bottom: 0.8px solid rgba(255, 255, 255, 0.25);
+  }
+  .hero-panel:nth-child(2n) {
+    border-right: none !important;
+  }
+  .hero-panel:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+  .hero-panel .hero-text {
+    padding: 0 8% 9% !important;
+  }
+  .hero-panel h2 {
+    font-size: 1.45em !important;
+  }
+}
+
+/* ─── TIPTAP / PROSE ─────────────────────────────────────────────────────── */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--nestovia-inkLight);
+  pointer-events: none;
+  height: 0;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+div[data-youtube-video] {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  margin: 24px 0;
+}
+
+div[data-youtube-video] iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0;
+}
+
+.prose img {
+  border-radius: 14px;
+  margin: 24px 0;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+}
