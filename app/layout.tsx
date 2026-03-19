@@ -20,7 +20,13 @@ const instrumentSerif = Instrument_Serif({
   display: 'swap',
 })
 
-const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://www.thepropertymarketer.com'
+function normalizeBaseUrl(value: string) {
+  const raw = value.trim()
+  if (!raw) return 'https://www.thepropertymarketer.com'
+  return /^https?:\/\//i.test(raw) ? raw : `https://${raw}`
+}
+
+const baseUrl = normalizeBaseUrl(process.env.NEXT_PUBLIC_URL || 'https://www.thepropertymarketer.com')
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),

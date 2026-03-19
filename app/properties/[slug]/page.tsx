@@ -56,7 +56,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const property = await getPropertyById(slug)
   if (!property) return { title: "Property Not Found | The Property Marketer" }
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.thepropertymarketer.com"
+  const rawBaseUrl = process.env.NEXT_PUBLIC_URL || "https://www.thepropertymarketer.com"
+  const baseUrl = /^https?:\/\//i.test(rawBaseUrl) ? rawBaseUrl : `https://${rawBaseUrl}`
   const imageUrl = property.image.startsWith("http") ? property.image : `${baseUrl}${property.image}`
   return {
     title: `${property.title} | The Property Marketer`,

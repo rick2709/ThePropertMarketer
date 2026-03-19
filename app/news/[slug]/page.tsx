@@ -84,7 +84,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!story) return { title: "Story Not Found | The Conservation Compass" }
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || "https://www.theconservationcompass.org"
+  const rawBaseUrl = process.env.NEXT_PUBLIC_URL || "https://www.theconservationcompass.org"
+  const baseUrl = /^https?:\/\//i.test(rawBaseUrl) ? rawBaseUrl : `https://${rawBaseUrl}`
   const imageUrl = story.image.startsWith("http")
     ? story.image
     : `${baseUrl}${story.image}`
