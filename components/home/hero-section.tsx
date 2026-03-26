@@ -27,7 +27,7 @@ export function HeroSection() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-28 pb-16">
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center justify-items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center justify-items-center">
 
           {/* Hero Image — first on mobile, second on desktop */}
           <div
