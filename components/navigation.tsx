@@ -29,10 +29,10 @@ export function Navigation() {
 
   // Always solid: no "transparent at top" navbar behavior.
   const navBg = "bg-card border border-border shadow-lg shadow-black/5"
-  const linkActive = "text-primary bg-primary/10"
-  const linkInactive = "text-foreground hover:text-primary hover:bg-muted"
-  const ctaClass = "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-primary/20"
-  const phoneClass = "text-muted-foreground hover:text-primary"
+  const linkActive = "text-accent bg-accent/10"
+  const linkInactive = "text-foreground hover:text-accent hover:bg-accent/5"
+  const ctaClass = "bg-accent text-white hover:bg-accent/90 hover:shadow-accent/20"
+  const phoneClass = "text-muted-foreground hover:text-accent"
 
   return (
     <>
@@ -119,8 +119,8 @@ export function Navigation() {
                 href={link.href}
                 className={`rounded-xl px-4 py-2.5 text-sm font-medium transition-colors ${
                   pathname === link.href
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground hover:text-primary hover:bg-muted"
+                    ? "text-accent bg-accent/10"
+                    : "text-foreground hover:text-accent hover:bg-accent/5"
                 }`}
               >
                 {link.label}
@@ -144,14 +144,14 @@ export function Navigation() {
               </div>
               <a
                 href="tel:+263783580470"
-                className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
+                className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-accent hover:bg-accent/5 transition-colors"
               >
                 <Phone className="h-4 w-4" />
                 +263 78 358 0470
               </a>
               <Link
                 href="/contact"
-                className="mt-1 flex justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+                className="mt-1 flex justify-center rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent/90"
               >
                 Get In Touch
               </Link>

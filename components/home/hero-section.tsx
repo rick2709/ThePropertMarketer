@@ -1,354 +1,156 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence, type Variants } from "framer-motion"
-
-const panels = [
-  {
-    heading: "Residential Stands",
-    desc: "Prime stands across Harare's top neighbourhoods, ready for immediate development.",
-  },
-  {
-    heading: "Commercial Stands",
-    desc: "Strategic commercial plots positioned for high visibility and business growth.",
-  },
-  {
-    heading: "Air BNB",
-    desc: "High-yield short-term rental opportunities with strong year-round income potential.",
-  },
-  {
-    heading: "Residential & Luxury Apartments",
-    desc: "Premium residences and high-end apartments for discerning buyers and investors.",
-  },
-]
-
-const FALLBACK_IMAGE = "/images/realestate.jpg"
-
-const PANEL_IMAGES = [
-  "/images/rearesidential.webp",
-  "/images/real2.webp",
-  "/images/installment.webp",
-  "/images/realestate.jpg",
-] as const
-
-// Richer navy overlay — heavier on mobile via a second layer
-const BRAND_OVERLAY =
-  "linear-gradient(180deg, rgba(0,30,110,0.62) 0%, rgba(0,10,50,0.92) 100%)"
-
-const PANEL_OVERLAY =
-  "linear-gradient(180deg, rgba(0,20,80,0.55) 0%, rgba(0,8,45,0.96) 100%)"
-
-// ── Animation variants ──────────────────────────────────────────────────────
-
-const EASE_OUT = [0.25, 0.46, 0.45, 0.94] as const
-
-// Per-panel: fades + slides up when it enters the viewport.
-// On desktop all panels are in-view at once → feels like a stagger (delay by index).
-// On mobile panels are stacked and scroll in → each triggers individually.
-const panelVariants = {
-  hidden: { opacity: 0, y: 32 },
-  show: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: EASE_OUT, delay: i * 0.1 },
-  }),
-}
-
-// Text block slides up inside the panel once the panel is visible
-const textVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut", delay: 0.2 },
-  },
-}
-
-const descVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.35, ease: "easeOut" },
-  },
-  exit: {
-    opacity: 0,
-    y: 6,
-    transition: { duration: 0.2, ease: "easeIn" },
-  },
-}
-
-const buttonVariants: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: "easeOut", delay: 0.05 },
-  },
-  exit: {
-    opacity: 0,
-    y: 6,
-    transition: { duration: 0.18, ease: "easeIn" },
-  },
-}
+import { useEffect, useRef, useState } from "react"
+import { ArrowDown, Play } from "lucide-react"
+import Image from "next/image"
 
 export function HeroSection() {
-  const [hoveredPanel, setHoveredPanel] = useState<number | null>(null)
-  const [isMobile, setIsMobile] = useState(false)
-  const touchTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const heroRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
-    check()
-    window.addEventListener("resize", check)
-    return () => window.removeEventListener("resize", check)
+    setIsVisible(true)
   }, [])
 
-  const handleTouchStart = (i: number) => {
-    if (touchTimer.current) clearTimeout(touchTimer.current)
-    setHoveredPanel(i)
-  }
-  const handleTouchEnd = () => {
-    touchTimer.current = setTimeout(() => setHoveredPanel(null), 900)
+  const scrollToServices = () => {
+    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <section
-      className="hero-section min-h-screen"
-      style={{ height: "100vh", position: "relative", overflow: "hidden" }}
+      ref={heroRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Layer 0 — fallback still image */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute", inset: 0,
-          backgroundImage: `url(${FALLBACK_IMAGE})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: 0,
-        }}
-      />
-
-      {/* Layer 1 — background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        aria-hidden="true"
-        style={{
-          position: "absolute", top: 0, left: 0,
-          width: "100%", height: "100%",
-          objectFit: "cover",
-          zIndex: 1,
-        }}
-      >
-        <source src="/vid/backgroundvid.mp4" type="video/mp4" />
-      </video>
-
-      {/* Layer 2 — global navy brand overlay */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute", inset: 0,
-          background: BRAND_OVERLAY,
-          zIndex: 2,
-        }}
-      />
-
-      {/* Layer 2b — extra mobile darkening so video never looks washed out */}
-      <div
-        aria-hidden="true"
-        className="mobile-extra-overlay"
-        style={{
-          position: "absolute", inset: 0,
-          background: "rgba(0,12,55,0.38)",
-          zIndex: 3,
-        }}
-      />
-
-      {/* Layer 3 — column layout */}
-      <div
-        className="hero-columns"
-        style={{
-          position: "relative", zIndex: 4,
-          height: "100%", display: "flex", width: "100%",
-        }}
-      >
-        {panels.map((panel, i) => {
-          const isActive = hoveredPanel === i
-          const showDesc = isActive || isMobile
-          const isLast = i === panels.length - 1
-
-          return (
-            <motion.div
-              key={i}
-              className="hero-panel"
-              custom={i}
-              variants={panelVariants}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, amount: 0.25 }}
-              onMouseEnter={() => setHoveredPanel(i)}
-              onMouseLeave={() => setHoveredPanel(null)}
-              onTouchStart={() => handleTouchStart(i)}
-              onTouchEnd={handleTouchEnd}
-              onTouchCancel={() => setHoveredPanel(null)}
-              style={{
-                flex: 1,
-                height: "100vh",
-                borderRight: isLast
-                  ? "none"
-                  : "0.8px solid rgba(255,255,255,0.22)",
-                position: "relative",
-                overflow: "hidden",
-                cursor: "default",
-              }}
-            >
-              {/* Per-panel image layer with deeper navy overlay */}
-              <div
-                aria-hidden="true"
-                style={{
-                  position: "absolute", inset: 0,
-                  backgroundImage: `${PANEL_OVERLAY}, url(${PANEL_IMAGES[i % PANEL_IMAGES.length]})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  transform: isActive ? "scale(1.07)" : "scale(1.0)",
-                  opacity: isActive ? 1 : 0,
-                  transition: isActive
-                    ? "transform 6s cubic-bezier(0.25,0.46,0.45,0.94), opacity 400ms ease"
-                    : "opacity 400ms ease, transform 500ms ease",
-                  zIndex: 0,
-                }}
-              />
-
-              {/* Text block — slides up when panel enters view; lifts further on desktop hover */}
-              <motion.div
-                className="hero-text"
-                variants={textVariants}
-                animate={{
-                  y: isActive && !isMobile ? -32 : 0,
-                }}
-                transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{
-                  position: "absolute",
-                  bottom: 0, left: 0, right: 0,
-                  padding: "0 10% 8%",
-                  zIndex: 1,
-                }}
-              >
-                <h2
-                  style={{
-                    fontFamily: "Geomanist-Medium, Helvetica, Arial, sans-serif",
-                    fontSize: "1.75em",
-                    fontWeight: 500,
-                    color: "rgb(255,255,255)",
-                    textAlign: "left",
-                    lineHeight: "1.4em",
-                    margin: 0,
-                    marginBottom: "0.55em",
-                  }}
-                >
-                  {panel.heading}
-                </h2>
-
-                <AnimatePresence mode="wait">
-                  {showDesc && (
-                    <motion.p
-                      key="desc"
-                      className="hero-panel-desc"
-                      variants={descVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      style={{
-                        fontFamily: "DM Sans, Helvetica, Arial, sans-serif",
-                        fontSize: "0.82em",
-                        fontWeight: 400,
-                        color: "rgba(209,224,255,0.88)",
-                        textAlign: "left",
-                        lineHeight: "1.65em",
-                        margin: 0,
-                        marginBottom: "1.1em",
-                        maxWidth: "26ch",
-                      }}
-                    >
-                      {panel.desc}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-
-                <AnimatePresence mode="wait">
-                  {(isActive || isMobile) && (
-                    <motion.div
-                      key="btn"
-                      variants={buttonVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                    >
-                      <Link
-                        href="/properties"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "0.45em",
-                          padding: "0.52em 1.1em",
-                          background: "rgba(255,255,255,0.12)",
-                          border: "1px solid rgba(255,255,255,0.35)",
-                          borderRadius: "4px",
-                          color: "rgba(255,255,255,0.92)",
-                          fontFamily: "DM Sans, Helvetica, Arial, sans-serif",
-                          fontSize: "0.75em",
-                          fontWeight: 500,
-                          letterSpacing: "0.06em",
-                          textTransform: "uppercase",
-                          textDecoration: "none",
-                          backdropFilter: "blur(6px)",
-                          WebkitBackdropFilter: "blur(6px)",
-                          transition: "background 220ms ease, border-color 220ms ease",
-                        }}
-                        onMouseEnter={e => {
-                          ;(e.currentTarget as HTMLAnchorElement).style.background =
-                            "rgba(255,255,255,0.22)"
-                          ;(e.currentTarget as HTMLAnchorElement).style.borderColor =
-                            "rgba(255,255,255,0.65)"
-                        }}
-                        onMouseLeave={e => {
-                          ;(e.currentTarget as HTMLAnchorElement).style.background =
-                            "rgba(255,255,255,0.12)"
-                          ;(e.currentTarget as HTMLAnchorElement).style.borderColor =
-                            "rgba(255,255,255,0.35)"
-                        }}
-                      >
-                        Explore
-                        <svg
-                          width="12"
-                          height="12"
-                          viewBox="0 0 12 12"
-                          fill="none"
-                          aria-hidden="true"
-                          style={{ flexShrink: 0 }}
-                        >
-                          <path
-                            d="M2 6h8M7 3l3 3-3 3"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </Link>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </motion.div>
-          )
-        })}
+      {/* Subtle Background Grid */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
+
+      <div className="container mx-auto px-6 pt-28 pb-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center justify-items-center">
+
+          {/* Left Content */}
+          <div className="flex flex-col items-start justify-center space-y-8 w-full max-w-xl">
+            {/* Badge */}
+            <div
+              className={`inline-flex items-center gap-2 px-4 py-2 bg-secondary rounded-full text-sm font-medium text-secondary-foreground transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+              Marketing Executive at Leengate
+            </div>
+
+            {/* Main Heading */}
+            <h1
+              className={`text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-[1.1] text-foreground transition-all duration-700 delay-100 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <span className="block">Elevating</span>
+              <span className="block text-accent">Real Estate</span>
+              <span className="block">Brands</span>
+            </h1>
+
+            {/* Subheading */}
+            <p
+              className={`text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed transition-all duration-700 delay-200 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              With 8+ years of expertise in real estate marketing, I transform properties into
+              compelling stories that captivate high-end clients and drive exceptional results.
+            </p>
+
+            {/* CTA Buttons */}
+            <div
+              className={`flex flex-wrap gap-4 transition-all duration-700 delay-300 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <a
+                href="#portfolio"
+                className="group px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium transition-all duration-300 hover:scale-105 hover:shadow-xl flex items-center gap-2"
+              >
+                View My Work
+                <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
+              </a>
+              <a
+                href="/about"
+                className="group px-8 py-4 border-2 border-foreground/20 text-foreground rounded-full font-medium transition-all duration-300 hover:border-accent hover:bg-accent/5 flex items-center gap-2"
+              >
+                <Play className="w-4 h-4" />
+                Learn More
+              </a>
+            </div>
+
+            {/* Scrolling Marquee */}
+            <div
+              className={`flex items-center gap-4 pt-2 w-full transition-all duration-700 delay-500 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              <span className="text-sm text-muted-foreground whitespace-nowrap">Specializing in:</span>
+              <div className="overflow-hidden flex-1">
+                <div className="flex animate-marquee gap-8">
+                  {["Airbnb Marketing", "Land Development", "Brand Building", "Marketing Strategy", "Airbnb Marketing", "Land Development", "Brand Building", "Marketing Strategy"].map((item, i) => (
+                    <span key={i} className="text-sm font-medium text-foreground whitespace-nowrap">
+                      {item} <span className="text-accent mx-2">•</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Content - Hero Image */}
+          <div
+            className={`relative w-full max-w-md lg:max-w-lg transition-all duration-1000 delay-300 ${
+              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-12"
+            }`}
+          >
+            {/* Decorative background shapes — behind the image */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 border-2 border-accent/30 rounded-3xl -z-10" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-3xl -z-10" />
+
+            {/* Image container — object-contain ensures no cropping */}
+            <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl bg-muted">
+              <Image
+                src="/images/hero-property.jpg"
+                alt="Luxury real estate property"
+                width={600}
+                height={750}
+                className="w-full h-auto object-contain transition-transform duration-700 hover:scale-[1.02]"
+                priority
+                style={{ display: "block" }}
+              />
+            </div>
+
+            {/* Stats card — sits below the image, never overlaps */}
+            <div className="mt-4 mx-2 px-6 py-4 bg-background/95 backdrop-blur-sm rounded-2xl shadow-lg border border-border/40">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                  <span className="text-2xl font-serif font-bold text-accent">8+</span>
+                </div>
+                <div>
+                  <p className="font-semibold text-foreground">Years of Excellence</p>
+                  <p className="text-sm text-muted-foreground">In Real Estate Marketing</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <button
+        onClick={scrollToServices}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 p-3 rounded-full border border-foreground/20 text-foreground/60 hover:text-foreground hover:border-foreground/40 transition-all duration-300 animate-bounce"
+        aria-label="Scroll to services"
+      >
+        <ArrowDown className="w-5 h-5" />
+      </button>
     </section>
   )
 }

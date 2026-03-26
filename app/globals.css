@@ -24,7 +24,7 @@
   --nestovia-inputBgAlt: rgba(187, 187, 187, 0.15);
   --nestovia-divider: #DBDBDB;
   --nestovia-borderMuted: rgba(196, 196, 196, 0.46);
-  --nestovia-star: #FFC300;
+  --nestovia-star: #C8102E;
   --nestovia-btnFrom: #2E2E2E;
   --nestovia-btnTo: #000000;
 
@@ -331,7 +331,7 @@ hr, .divider {
 
 /* ─── STAR RATING ───────────────────────────────────────────────────────── */
 .star {
-  color: #FFC300;
+  color: #C8102E;
   font-size: 16px;
 }
 
@@ -522,7 +522,7 @@ div[data-youtube-video] iframe {
 
 /* Preserve accent color on navy sections/footers. */
 .bg-primary [class*="text-accent"] {
-  color: var(--nestovia-star) !important;
+  color: #C8102E !important;
 }
 
 /* Ensure both primary + primary-foreground never render dark on navy. */

@@ -41,7 +41,7 @@ export function PropertiesSection() {
   }, [])
 
   return (
-    <section className="bg-background py-24" ref={ref}>
+    <section id="portfolio" className="bg-background py-24" ref={ref}>
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-16 text-center">
           <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-accent">
